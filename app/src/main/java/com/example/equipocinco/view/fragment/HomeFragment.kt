@@ -88,15 +88,22 @@ class HomeFragment : Fragment() {
 
         star_button = binding.toolbarContainer.findViewById(R.id.star_button)
         controller_button = binding.toolbarContainer.findViewById(R.id.controller_button)
+
+        controller_button.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_rulesFragment)
+        }
+
         plus_button = binding.toolbarContainer.findViewById(R.id.plus_button)
         share_button = binding.toolbarContainer.findViewById(R.id.share_button)
 
 
-        onToolbarButtonClick(star_button)
+
+
+        //onToolbarButtonClick(star_button)
         //onToolbarButtonClick(volume_button)
-        onToolbarButtonClick(controller_button)
-        onToolbarButtonClick(plus_button)
-        onToolbarButtonClick(share_button)
+        //onToolbarButtonClick(controller_button)
+        //onToolbarButtonClick(plus_button)
+        //onToolbarButtonClick(share_button)
     }
 
     private fun startCountdown(initialNumber: Long){

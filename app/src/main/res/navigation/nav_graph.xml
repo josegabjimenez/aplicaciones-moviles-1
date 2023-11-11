@@ -9,5 +9,14 @@
         android:id="@+id/homeFragment"
         android:name="com.example.equipocinco.view.fragment.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_rulesFragment"
+            app:destination="@id/rulesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rulesFragment"
+        android:name="com.example.equipocinco.view.fragment.RulesFragment"
+        android:label="RulesFragment"
+        tools:layout="@layout/fragment_rules"/>
 </navigation>

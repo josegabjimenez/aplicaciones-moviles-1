@@ -1,4 +1,4 @@
-package com.example.equipocinco.view.view
+package com.example.equipocinco.view
 
 
 import android.annotation.SuppressLint

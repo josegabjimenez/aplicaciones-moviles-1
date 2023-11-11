@@ -1,4 +1,4 @@
-package com.example.equipocinco.view.view.fragment
+package com.example.equipocinco.view.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
