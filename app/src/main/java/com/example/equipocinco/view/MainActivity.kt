@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.widget.TextView
 import android.os.CountDownTimer
 import android.view.View
+import android.media.MediaPlayer
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +21,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //se reproduce la musica
+        val music = MediaPlayer.create(this,R.raw.home_sound)
+        music.isLooping = true
+        music.start()
 
         //Logica del boton interactivo
         val lottieButton = findViewById<LottieAnimationView>(R.id.pushmeButton)
