@@ -1,6 +1,8 @@
 package com.example.equipocinco.view.fragment
 
+import android.annotation.SuppressLint
 import android.media.MediaPlayer
+import android.net.IpSecManager.ResourceUnavailableException
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
@@ -36,6 +38,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -88,9 +91,12 @@ class HomeFragment : Fragment() {
         plus_button = binding.toolbarContainer.findViewById(R.id.plus_button)
         share_button = binding.toolbarContainer.findViewById(R.id.share_button)
 
-        toolbar_touch_animation = binding.toolbarContainer.findViewById(R.id.toolbar_touch_animation)
 
-        // small_touch_toolbar_animation()
+        onToolbarButtonClick(star_button)
+        //onToolbarButtonClick(volume_button)
+        onToolbarButtonClick(controller_button)
+        onToolbarButtonClick(plus_button)
+        onToolbarButtonClick(share_button)
     }
 
     private fun startCountdown(initialNumber: Long){
@@ -129,46 +135,23 @@ class HomeFragment : Fragment() {
     }
 
 
-    /*
-    private fun small_touch_toolbar_animation(){
-        val clickListener = View.OnClickListener {
-            // Hacer la animación Lottie visible y comenzarla
-            toolbar_touch_animation.visibility = View.VISIBLE
-            toolbar_touch_animation.playAnimation()
-
-            // Desactivar el clic para evitar múltiples clics mientras la animación está en curso
-            star_button.isClickable = false
-            controller_button.isClickable = false
-            plus_button.isClickable = false
-            share_button.isClickable = false
-
-            // Agregar un listener para restablecer el clic cuando la animación se complete
-            toolbar_touch_animation.addAnimatorListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(animation: Animator) {}
-
-                override fun onAnimationEnd(animation: Animator) {
-                    star_button.isClickable = true
-                    controller_button.isClickable = true
-                    plus_button.isClickable = true
-                    share_button.isClickable = true
-                    toolbar_touch_animation.visibility = View.INVISIBLE
-                    toolbar_touch_animation.cancelAnimation()
-                }
-
-                override fun onAnimationCancel(animation: Animator) {}
-
-                override fun onAnimationRepeat(animation: Animator) {}
-            })
+    private fun onToolbarButtonClick(view: View){
+        view.setOnClickListener {
+            view.animate()
+                .scaleX(0.8f)
+                .scaleY(0.8f)
+                .setDuration(100)
+                .withEndAction(Runnable() {
+                    run() {
+                        view.animate().scaleX(1f).scaleY(1f).setDuration(100)
+                    }
+                })
+                .start();
         }
-
-        // Configurar el OnClickListener para cada icono
-        star_button.setOnClickListener(clickListener)
-        controller_button.setOnClickListener(clickListener)
-        plus_button.setOnClickListener(clickListener)
-        share_button.setOnClickListener(clickListener)
-
     }
-*/
+
+
+
 
 
 }
