@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.equipocinco.R
 import androidx.appcompat.widget.Toolbar
 import android.widget.TextView
+import com.example.equipocinco.view.dialog.AddChallengeDialog.Companion.showDialog
 import com.example.equipocinco.databinding.FragmentChallengesListBinding
 
 class ChallengesListFragment : Fragment() {
@@ -35,7 +36,7 @@ class ChallengesListFragment : Fragment() {
 
     private fun controller(){
         binding.fbagregar.setOnClickListener{
-            
+            showDialog(binding.root.context)
         }
 
     }
