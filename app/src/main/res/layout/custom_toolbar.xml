@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24dp"
+            app:cardBackgroundColor="@color/black"
+            app:cardElevation="4dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginEnd="-23dp"
+                android:background="@color/black"
+                app:theme="@style/toolbarTheme">
+
+                <ImageView
+                    android:id="@+id/share_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="15dp"
+                    android:clickable="true"
+                    android:padding="2dp"
+                    android:src="@drawable/icono_compartir" />
+
+                <ImageView
+                    android:id="@+id/plus_button"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="15dp"
+                    android:clickable="true"
+                    android:padding="2dp"
+                    android:src="@drawable/icono_mas" />
+
+                <ImageView
+                    android:id="@+id/controller_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="15dp"
+                    android:clickable="true"
+                    android:padding="2dp"
+                    android:src="@drawable/icono_control" />
+
+                <ImageView
+                    android:id="@+id/volume_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="15dp"
+                    android:clickable="true"
+
+                    android:src="@drawable/icono_volumen" />
+
+                <ImageView
+                    android:id="@+id/star_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="15dp"
+                    android:clickable="true"
+                    android:padding="2dp"
+                    android:src="@drawable/icono_estrella"
+                    />
+
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </androidx.cardview.widget.CardView>
+       >
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
