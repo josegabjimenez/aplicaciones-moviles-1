@@ -9,6 +9,10 @@
         android:background="@color/gray"
         tools:context=".ConstraintLayout">
 
+        <include
+            android:id="@+id/contentToolbar"
+            layout="@layout/toolbar" />
+
         <!-- Elementos sobre otros elementos-->
 
         <!-- Elementos enlazados respecto al contenedor padre y respecto a otro elemento-->
@@ -46,6 +50,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/title_how_play"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
             tools:ignore="MissingConstraints" />
@@ -57,6 +62,7 @@
             android:layout_marginTop="212dp"
             android:text="@string/title_who_wins"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
             tools:ignore="MissingConstraints" />
@@ -91,9 +97,7 @@
             app:layout_constraintGuide_begin="16dp" />
 
 
-
-        <!-- Uso de Chains, con el ejemplo anterior, clic derecho /chains-->
-
+        
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
