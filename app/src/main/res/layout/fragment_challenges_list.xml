@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gray"
         tools:context=".view.fragment.ChallengesListFragment">
 
         <!-- TODO: Update blank fragment layout -->
@@ -17,10 +18,19 @@
             android:id="@+id/contentToolbar"
             layout="@layout/toolbar" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fbagregar"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:contentDescription="button add"
+            android:layout_marginRight="40dp"
+            android:backgroundTint="@color/orange"
+            android:layout_marginBottom="16dp"
+            app:srcCompat="@drawable/ic_add"
+            app:tint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:shapeAppearanceOverlay="@style/RoundedFAB"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -9,4 +9,8 @@
         <item name="android:colorControlNormal">@color/orange</item>
         <item name="titleTextColor">@color/orange</item>
     </style>
+    <style name="RoundedFAB" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
