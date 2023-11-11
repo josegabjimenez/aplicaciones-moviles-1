@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/challengesListFragment">
 
+    <fragment
+        android:id="@+id/challengesListFragment"
+        android:name="com.example.equipocinco.view.fragment.ChallengesListFragment"
+        android:label="fragment_challenges_list"
+        tools:layout="@layout/fragment_challenges_list" >
+        <action
+            android:id="@+id/action_challengesListFragment_to_addChallengeFragment"
+            app:destination="@id/addChallengeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addChallengeFragment"
+        android:name="com.example.equipocinco.view.fragment.AddChallengeFragment"
+        android:label="fragment_add_challenge"
+        tools:layout="@layout/fragment_add_challenge" />
 </navigation>
