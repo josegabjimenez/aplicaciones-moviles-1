@@ -1,4 +1,4 @@
-package com.example.equipocinco.view
+package com.example.equipocinco.view.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
