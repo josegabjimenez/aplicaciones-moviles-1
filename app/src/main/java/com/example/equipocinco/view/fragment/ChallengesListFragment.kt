@@ -30,5 +30,13 @@ class ChallengesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        controller()
+    }
+
+    private fun controller(){
+        binding.fbagregar.setOnClickListener{
+            
+        }
+
     }
 }
