@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/challengesListFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/challengesListFragment"
-        android:name="com.example.equipocinco.view.fragment.ChallengesListFragment"
-        android:label="fragment_challenges_list"
-        tools:layout="@layout/fragment_challenges_list" />
+        android:id="@+id/homeFragment"
+        android:name="com.example.equipocinco.view.fragment.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
 </navigation>

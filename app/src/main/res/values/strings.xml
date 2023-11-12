@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="challenge_fragment">Retos</string>
+    <string name="splash_screen_text">pico botella</string>
+    <string name="push_me">Presióname</string>
+    <string name="regresive_count_number">4</string>
 </resources>
