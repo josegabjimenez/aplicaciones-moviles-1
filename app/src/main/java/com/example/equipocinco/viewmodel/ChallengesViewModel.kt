@@ -20,10 +20,4 @@ class ChallengesViewModel(application: Application): AndroidViewModel(applicatio
 
     }
 
-    companion object {
-        fun saveChallenge(challenge: Challenge) {
-            saveChallenge(challenge)
-        }
-    }
-
 }

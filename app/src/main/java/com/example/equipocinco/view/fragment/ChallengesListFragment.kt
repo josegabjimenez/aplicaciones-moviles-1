@@ -1,19 +1,22 @@
 package com.example.equipocinco.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.equipocinco.R
-import androidx.appcompat.widget.Toolbar
 import android.widget.TextView
-import com.example.equipocinco.view.dialog.AddChallengeDialog.Companion.showDialog
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.equipocinco.R
 import com.example.equipocinco.databinding.FragmentChallengesListBinding
+import com.example.equipocinco.view.dialog.AddChallengeDialog
 import com.example.equipocinco.viewmodel.ChallengesViewModel
 
 class ChallengesListFragment : Fragment() {
     private lateinit var binding: FragmentChallengesListBinding
+
+    private val challengesViewModel: ChallengesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +39,9 @@ class ChallengesListFragment : Fragment() {
     }
 
     private fun controller(){
+        val dialog = AddChallengeDialog(challengesViewModel)
         binding.fbagregar.setOnClickListener{
-            showDialog(binding.root.context)
+            dialog.showDialog(binding.root.context)
         }
 
     }
