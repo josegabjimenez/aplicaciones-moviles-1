@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import android.widget.TextView
 import com.example.equipocinco.view.dialog.AddChallengeDialog.Companion.showDialog
 import com.example.equipocinco.databinding.FragmentChallengesListBinding
+import com.example.equipocinco.viewmodel.ChallengesViewModel
 
 class ChallengesListFragment : Fragment() {
     private lateinit var binding: FragmentChallengesListBinding
