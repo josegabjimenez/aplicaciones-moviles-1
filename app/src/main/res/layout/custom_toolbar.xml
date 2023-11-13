@@ -21,7 +21,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_marginEnd="-23dp"
                 android:background="@color/black"
-                app:theme="@style/toolbarTheme">
+                app:theme="@style/toolbarThemeHome">
 
                 <ImageView
                     android:id="@+id/share_button"

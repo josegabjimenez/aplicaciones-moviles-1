@@ -8,6 +8,11 @@
     <style name="Theme.EquipoCinco" parent="Base.Theme.EquipoCinco" />
 
     <style name="toolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:colorControlNormal">@color/orange</item>
+        <item name="titleTextColor">@color/orange</item>
+    </style>
+
+    <style name="toolbarThemeHome" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:colorControlNormal">@color/white</item>
         <item name="titleTextColor">@color/white</item>
     </style>
