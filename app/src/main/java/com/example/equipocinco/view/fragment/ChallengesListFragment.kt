@@ -2,14 +2,18 @@ package com.example.equipocinco.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.equipocinco.R
 import com.example.equipocinco.databinding.FragmentChallengesListBinding
+import com.example.equipocinco.view.adapter.ChallengeAdapter
 import com.example.equipocinco.view.dialog.AddChallengeDialog
 import com.example.equipocinco.viewmodel.ChallengesViewModel
 
@@ -28,21 +32,51 @@ class ChallengesListFragment : Fragment() {
         return binding.root
     }
 
-    private fun setupToolbar(toolbar: Toolbar) {
-        val toolbarTitle = toolbar.findViewById<TextView>(R.id.toolbarTitle)
-        toolbarTitle.text = "Retos"
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val toolbar = binding.contentToolbar.toolbar
+        val toolbarTitle:TextView = toolbar.findViewById(R.id.toolbarTitle)
+        toolbarTitle.text = "Retos"
+        toolbar.setNavigationOnClickListener{
+            findNavController().popBackStack()
+        }
+
+        val imageViewDelete = view.findViewById<ImageView>(R.id.ivDelete)
+        val imageViewEdit = view.findViewById<ImageView>(R.id.ivEdit)
+        // Agregar un listener de onTouch para la animación de "touch"
+
+
         controller()
+        observerViewModel()
+
+    }
+
+    private fun observerViewModel(){
+        observerChallengesList()
+    }
+
+    private fun observerChallengesList(){
+        challengesViewModel.getChallengesList()
+        challengesViewModel.challengesList.observe(viewLifecycleOwner){challengesList ->
+            val recycler = binding.recyclerview
+            val layoutManager = LinearLayoutManager(context)
+            layoutManager.reverseLayout = true
+            layoutManager.stackFromEnd = true
+            recycler.layoutManager = layoutManager
+            val adapter = ChallengeAdapter(challengesList)
+            recycler.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
     }
 
     private fun controller(){
-        val dialog = AddChallengeDialog(challengesViewModel)
+        val dialog = AddChallengeDialog(challengesViewModel) {
+            observerChallengesList()
+        }
         binding.fbagregar.setOnClickListener{
             dialog.showDialog(binding.root.context)
         }
 
     }
+
 }

@@ -14,4 +14,9 @@ class ChallengesRepository (val context: Context){
             challengeDao.saveChallenge(challenge)
         }
     }
+    suspend fun getChallengesList():MutableList<Challenge>{
+        return withContext(Dispatchers.IO){
+            challengeDao.getChallengesList()
+        }
+    }
 }

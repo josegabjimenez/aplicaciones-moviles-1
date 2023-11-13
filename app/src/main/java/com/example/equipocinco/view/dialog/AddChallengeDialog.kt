@@ -13,7 +13,7 @@ import com.example.equipocinco.databinding.AddChallengeDialogBinding
 import com.example.equipocinco.model.Challenge
 import com.example.equipocinco.viewmodel.ChallengesViewModel
 
-class AddChallengeDialog (private val challengesViewModel: ChallengesViewModel) {
+class AddChallengeDialog (private val challengesViewModel: ChallengesViewModel, private val onClose: () -> Unit) {
     fun showDialog(context: Context) {
         val inflater = LayoutInflater.from(context)
         val binding = AddChallengeDialogBinding.inflate(inflater)
@@ -48,6 +48,7 @@ class AddChallengeDialog (private val challengesViewModel: ChallengesViewModel) 
             saveChallenge(binding.etInsertChallenge.text.toString())
             Toast.makeText(context, "Reto adicionado", Toast.LENGTH_SHORT).show()
             alertDialog.dismiss()
+            onClose.invoke()
         }
 
         alertDialog.show()

@@ -20,7 +20,7 @@ import com.example.equipocinco.databinding.FragmentHomeBinding
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-
+    private lateinit var music: MediaPlayer
     private lateinit var interfaceText: TextView
     private lateinit var interfaceTimer: CountDownTimer
     private lateinit var volume_button: ImageView
@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
     private lateinit var plus_button: ImageView
     private lateinit var share_button: ImageView
     private lateinit var toolbar_touch_animation: LottieAnimationView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +44,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //se reproduce la musica
-        val music = MediaPlayer.create(requireContext(),R.raw.home_sound)
+        music = MediaPlayer.create(requireContext(),R.raw.home_sound)
         music.isLooping = true
         music.start()
 
@@ -120,6 +121,20 @@ class HomeFragment : Fragment() {
 
         // Iniciar la cuenta regresiva
         interfaceTimer.start()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (music.isPlaying){
+            music.pause()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(!music.isPlaying){
+            music.start()
+        }
     }
     override fun onDestroy() {
         // Detener la cuenta regresiva al destruir la actividad
