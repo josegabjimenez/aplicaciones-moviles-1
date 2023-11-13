@@ -7,6 +7,7 @@
     </string>
     <string name="title_who_wins">¿Quién gana?</string>
     <string name="paragraph_who_wins">Gana el último jugador que no abandone el juego</string>
+    <string name="challenge_fragment">Retos</string>
     <string name="splash_screen_text">pico botella</string>
     <string name="push_me">Presióname</string>
     <string name="regresive_count_number">4</string>
