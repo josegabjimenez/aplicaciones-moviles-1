@@ -1,5 +1,7 @@
 package com.example.equipocinco.view.fragment
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -9,14 +11,18 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.animation.addListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.example.equipocinco.R
 import com.example.equipocinco.databinding.FragmentHomeBinding
 import com.example.equipocinco.viewmodel.MusicViewModel
+import kotlin.random.Random
 
 class HomeFragment : Fragment() {
 
@@ -31,6 +37,7 @@ class HomeFragment : Fragment() {
     private lateinit var share_button: ImageView
     private lateinit var toolbar_touch_animation: LottieAnimationView
     private val musicViewModel: MusicViewModel by viewModels()
+    private lateinit var bottle: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +63,10 @@ class HomeFragment : Fragment() {
         val layoutParams = lottieButton.layoutParams
 
         lottieButton.setOnTouchListener { _, motionEvent ->
+
+            println("Start Bottle Animation")
+            spinBottle()
+
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
                     layoutParams.width = layoutParams.width - 40
@@ -100,7 +111,7 @@ class HomeFragment : Fragment() {
 
         share_button = binding.toolbarContainer.findViewById(R.id.share_button)
 
-
+        bottle = binding.bottle
         //onToolbarButtonClick(star_button)
         //onToolbarButtonClick(volume_button)
         //onToolbarButtonClick(controller_button)
@@ -108,7 +119,7 @@ class HomeFragment : Fragment() {
         //onToolbarButtonClick(share_button)
     }
 
-    private fun startCountdown(initialNumber: Long){
+    private fun startCountdown(initialNumber: Long, firstTime: Boolean = true){
         interfaceTimer = object : CountDownTimer(initialNumber * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 // Actualizar el TextView en cada tick
@@ -119,6 +130,11 @@ class HomeFragment : Fragment() {
             override fun onFinish() {
                 // Acciones cuando la cuenta regresiva termina
                 interfaceText.visibility = View.GONE
+
+                if (!firstTime){
+                    binding.pushmeButton.visibility = View.VISIBLE
+                    Toast.makeText(requireContext(), "RETOO!", Toast.LENGTH_LONG).show()
+                }
             }
         }
 
@@ -160,8 +176,6 @@ class HomeFragment : Fragment() {
         }
 
     }
-
-
     private fun onToolbarButtonClick(view: View){
         view.setOnClickListener {
             view.animate()
@@ -177,7 +191,54 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun spinBottle() {
+        // Deshabilitar botón
+        binding.pushmeButton.visibility = View.GONE
 
+        // Reproducir sonido de la botella
+        val spin_bottle_sound: MediaPlayer = MediaPlayer.create(requireContext(),R.raw.spin_bottle_sound)
+        spin_bottle_sound.start()
+
+        // SI la música está activa, se para
+        if(music.isPlaying){
+            music.pause()
+        }
+
+        // Se obtiene la posición actual de la botella
+        val currentRotation = bottle.rotation
+
+        // Se genera un ángulo de giro aleatorio
+        val randomAngle = currentRotation + 180f + Random.nextFloat() * 720f
+
+        // Se crea el objeto rotation con el angulo de la botella y el ángulo de giro aleatorio
+        val rotation = ObjectAnimator.ofFloat(bottle, "rotation", currentRotation, randomAngle)
+
+        // Se agrega una duración de 5 segundos
+        rotation.duration = 5000
+
+        // Se crea un interpolador para un movimiento fluido
+        rotation.interpolator = LinearInterpolator()
+
+        // Agregar un listener para ver si la animación termino y así ejecutar un método
+        // Set up an AnimatorListener to listen for animation end
+        rotation.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {}
+
+            // Eventos cuando se termina la animación
+            override fun onAnimationEnd(animation: Animator) {
+                interfaceText.visibility = View.VISIBLE
+                // Se ejecuta el contador desde el 3 al 0
+                startCountdown(4, firstTime = false)
+            }
+
+            override fun onAnimationCancel(animation: Animator) {}
+
+            override fun onAnimationRepeat(animation: Animator) {}
+        })
+
+        // Se inicia la animación
+        rotation.start()
+    }
 
 
 
