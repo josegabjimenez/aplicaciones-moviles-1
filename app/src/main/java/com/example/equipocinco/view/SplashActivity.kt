@@ -9,7 +9,6 @@ import android.animation.ObjectAnimator
 import android.widget.ImageView
 
 
-
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

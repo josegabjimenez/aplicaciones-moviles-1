@@ -91,10 +91,11 @@ dependencies {
     //Glide
     implementation ("com.github.bumptech.glide:glide:4.12.0")
 
+    //Lottie
+    implementation ("com.airbnb.android:lottie:6.1.0")
+
     //API SplashScreen
 
     implementation ("androidx.core:core-splashscreen:1.0.1")
 
-    //Biblioteca Lottie
-    implementation ("com.airbnb.android:lottie:4.1.0")
 }
