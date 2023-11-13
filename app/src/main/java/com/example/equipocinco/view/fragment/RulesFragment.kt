@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.example.equipocinco.databinding.FragmentRulesBinding
 
 import com.example.equipocinco.R
@@ -26,5 +27,11 @@ class RulesFragment : Fragment() {
         val toolbar = binding.contentToolbar.toolbar
         val toolbarTitle:TextView = toolbar.findViewById(R.id.toolbarTitle)
         toolbarTitle.text = "Reglas del Juego"
+
+        toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
+
+
 }
