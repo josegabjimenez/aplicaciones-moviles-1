@@ -1,14 +1,14 @@
 package com.example.equipocinco.view.dialog
 
-import android.app.Application
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import com.google.android.material.button.MaterialButton
 import com.example.equipocinco.databinding.AddChallengeDialogBinding
 import com.example.equipocinco.model.Challenge
 import com.example.equipocinco.viewmodel.ChallengesViewModel
@@ -22,6 +22,7 @@ class AddChallengeDialog (private val challengesViewModel: ChallengesViewModel, 
         alertDialog.setView(binding.root)
 
         binding.btnSave.isEnabled = false
+        updateButtonColor(binding.btnSave.isEnabled, binding.btnSave)
 
         binding.etInsertChallenge.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -34,6 +35,7 @@ class AddChallengeDialog (private val challengesViewModel: ChallengesViewModel, 
 
             override fun afterTextChanged(s: Editable?) {
                 binding.btnSave.isEnabled = s.toString().isNotEmpty()
+                updateButtonColor(binding.btnSave.isEnabled, binding.btnSave)
             }
 
         })
@@ -58,5 +60,14 @@ class AddChallengeDialog (private val challengesViewModel: ChallengesViewModel, 
         println("SAVING CHALLENGEEEEE!!!")
         val challenge = Challenge(description = description)
         challengesViewModel.saveChallenge(challenge)
+    }
+
+    private fun updateButtonColor(isEnabled: Boolean, btnSave: MaterialButton) {
+        // Cambia el color del botón btnSave según su estado de habilitación
+        if (isEnabled) {
+            btnSave.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FF3A06")) // Color naranja
+        } else {
+            btnSave.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#808080")) // Color gris
+        }
     }
 }

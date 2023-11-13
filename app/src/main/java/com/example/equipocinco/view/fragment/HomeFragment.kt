@@ -2,7 +2,6 @@ package com.example.equipocinco.view.fragment
 
 import android.annotation.SuppressLint
 import android.media.MediaPlayer
-import android.net.IpSecManager.ResourceUnavailableException
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
@@ -12,10 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.example.equipocinco.R
 import com.example.equipocinco.databinding.FragmentHomeBinding
+import com.example.equipocinco.viewmodel.MusicViewModel
 
 class HomeFragment : Fragment() {
 
@@ -29,6 +30,7 @@ class HomeFragment : Fragment() {
     private lateinit var plus_button: ImageView
     private lateinit var share_button: ImageView
     private lateinit var toolbar_touch_animation: LottieAnimationView
+    private val musicViewModel: MusicViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +48,9 @@ class HomeFragment : Fragment() {
         //se reproduce la musica
         music = MediaPlayer.create(requireContext(),R.raw.home_sound)
         music.isLooping = true
-        music.start()
-
+        if(musicViewModel.musicEnabled.value == true){
+            music.start()
+        }
         //Logica del boton "presioname"
         val lottieButton = binding.pushmeButton
         val layoutParams = lottieButton.layoutParams
@@ -132,8 +135,10 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if(!music.isPlaying){
+        if(musicViewModel.musicEnabled.value == true){
             music.start()
+        } else {
+            volume_button.setImageResource(R.drawable.icono_sin_volumen)
         }
     }
     override fun onDestroy() {
@@ -146,9 +151,11 @@ class HomeFragment : Fragment() {
 
         if(music.isPlaying){
             volume_button.setImageResource(R.drawable.icono_sin_volumen)
+            musicViewModel.setMusicEnabled(false)
             music.pause()
         }else{
             volume_button.setImageResource(R.drawable.icono_volumen)
+            musicViewModel.setMusicEnabled(true)
             music.start()
         }
 

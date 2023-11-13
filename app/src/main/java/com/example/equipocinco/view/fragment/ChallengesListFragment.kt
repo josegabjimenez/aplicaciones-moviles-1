@@ -2,10 +2,8 @@ package com.example.equipocinco.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -40,12 +38,6 @@ class ChallengesListFragment : Fragment() {
         toolbar.setNavigationOnClickListener{
             findNavController().popBackStack()
         }
-
-        val imageViewDelete = view.findViewById<ImageView>(R.id.ivDelete)
-        val imageViewEdit = view.findViewById<ImageView>(R.id.ivEdit)
-        // Agregar un listener de onTouch para la animación de "touch"
-
-
         controller()
         observerViewModel()
 
