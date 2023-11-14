@@ -10,6 +10,8 @@ import android.net.IpSecManager.ResourceUnavailableException
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -25,6 +27,8 @@ import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.example.equipocinco.R
 import com.example.equipocinco.databinding.FragmentHomeBinding
+import com.example.equipocinco.view.dialog.RandomChallengeDialog
+import com.example.equipocinco.viewmodel.ChallengesViewModel
 import com.example.equipocinco.viewmodel.MusicViewModel
 import kotlin.random.Random
 
@@ -41,7 +45,9 @@ class HomeFragment : Fragment() {
     private lateinit var share_button: ImageView
     private lateinit var toolbar_touch_animation: LottieAnimationView
     private val musicViewModel: MusicViewModel by viewModels()
+    private val challengesViewModel: ChallengesViewModel by viewModels()
     private lateinit var bottle: ImageView
+    private var countdownStarted = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,9 +76,10 @@ class HomeFragment : Fragment() {
 
         lottieButton.setOnTouchListener { _, motionEvent ->
 
-            println("Start Bottle Animation")
+            // Empieza la animación de la botella
             spinBottle()
 
+            // Se le agrega un efecto al botón de inicio
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
                     layoutParams.width = layoutParams.width - 40
@@ -131,6 +138,12 @@ class HomeFragment : Fragment() {
         //onToolbarButtonClick(controller_button)
         //onToolbarButtonClick(plus_button)
         //onToolbarButtonClick(share_button)
+
+        // Traigo un challenge random de la base de datos
+        challengesViewModel.getRandomChallenge()
+
+        // Traigo los pokemons de la API
+        challengesViewModel.getPokemonlist()
     }
 
     private fun shareApp() {
@@ -163,6 +176,9 @@ class HomeFragment : Fragment() {
     }
     
     private fun startCountdown(initialNumber: Long, firstTime: Boolean = true){
+        // Resetear botón
+        binding.pushmeButton.visibility = View.GONE
+
         interfaceTimer = object : CountDownTimer(initialNumber * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 // Actualizar el TextView en cada tick
@@ -173,10 +189,18 @@ class HomeFragment : Fragment() {
             override fun onFinish() {
                 // Acciones cuando la cuenta regresiva termina
                 interfaceText.visibility = View.GONE
+                binding.pushmeButton.visibility = View.VISIBLE
 
                 if (!firstTime){
-                    binding.pushmeButton.visibility = View.VISIBLE
-                    Toast.makeText(requireContext(), "RETOO!", Toast.LENGTH_LONG).show()
+                    // println("SE ACABÓ EL CONTADORRRRRR")
+
+                    // Traigo un challenge random de la base de datos
+                    challengesViewModel.getRandomChallenge()
+
+                    val dialog = RandomChallengeDialog(challengesViewModel)
+                    dialog.showDialog(binding.root.context)
+
+                    countdownStarted = false
                 }
             }
         }
@@ -235,6 +259,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun spinBottle() {
+
+
         // Deshabilitar botón
         binding.pushmeButton.visibility = View.GONE
 
@@ -262,25 +288,20 @@ class HomeFragment : Fragment() {
         // Se crea un interpolador para un movimiento fluido
         rotation.interpolator = LinearInterpolator()
 
-        // Agregar un listener para ver si la animación termino y así ejecutar un método
-        // Set up an AnimatorListener to listen for animation end
-        rotation.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {}
-
-            // Eventos cuando se termina la animación
-            override fun onAnimationEnd(animation: Animator) {
-                interfaceText.visibility = View.VISIBLE
-                // Se ejecuta el contador desde el 3 al 0
-                startCountdown(4, firstTime = false)
-            }
-
-            override fun onAnimationCancel(animation: Animator) {}
-
-            override fun onAnimationRepeat(animation: Animator) {}
-        })
-
         // Se inicia la animación
         rotation.start()
+
+        val handler = Handler(Looper.getMainLooper())
+
+        handler.postDelayed({
+            if(countdownStarted == false){
+                countdownStarted = true
+                interfaceText.visibility = View.VISIBLE
+                // Se ejecuta el contador desde el 3 al 0
+                //println("SE ACABÓ LA ANIMACIÓNNNNN")
+                startCountdown(4, firstTime = false)
+            }
+        }, 6000)
     }
 
 
