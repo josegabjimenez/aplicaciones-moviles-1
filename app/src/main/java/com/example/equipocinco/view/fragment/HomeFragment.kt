@@ -197,9 +197,12 @@ class HomeFragment : Fragment() {
                     // Traigo un challenge random de la base de datos
                     challengesViewModel.getRandomChallenge()
 
-                    val dialog = RandomChallengeDialog(challengesViewModel)
-                    dialog.showDialog(binding.root.context)
+                    val dialogBuilder = RandomChallengeDialog(challengesViewModel)
+                    val dialog = dialogBuilder.showDialog(binding.root.context)
 
+                    dialog.setOnDismissListener {
+                        onResume()
+                    }
                     countdownStarted = false
                 }
             }
@@ -269,9 +272,7 @@ class HomeFragment : Fragment() {
         spin_bottle_sound.start()
 
         // SI la música está activa, se para
-        if(music.isPlaying){
-            music.pause()
-        }
+        onStop()
 
         // Se obtiene la posición actual de la botella
         val currentRotation = bottle.rotation

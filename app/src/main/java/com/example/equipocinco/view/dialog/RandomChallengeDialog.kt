@@ -20,7 +20,7 @@ import android.util.Log
 class RandomChallengeDialog (private val challengesViewModel: ChallengesViewModel) {
     fun showDialog(
         context: Context
-    ) {
+    ): AlertDialog {
         val inflater = LayoutInflater.from(context)
         val binding = RandomChallengeDialogBinding.inflate(inflater)
 
@@ -89,5 +89,8 @@ class RandomChallengeDialog (private val challengesViewModel: ChallengesViewMode
         }
 
         alertDialog.show()
+
+        return alertDialog
+
     }
 }
