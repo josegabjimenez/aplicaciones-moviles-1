@@ -1,18 +1,33 @@
 package com.example.equipocinco.view.viewholder
 
 import android.view.MotionEvent
+import com.example.equipocinco.view.viewholder.OnEditClickListener
+
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.equipocinco.databinding.ChallengesListBinding
 import com.example.equipocinco.model.Challenge
+interface OnEditClickListener {
+    fun onEditClick(challengeId: Int)
+    fun onDeleteClick(challengeId: Int)
+}
 
-class ChallengeViewHolder (binding: ChallengesListBinding):RecyclerView.ViewHolder(binding.root) {
+class ChallengeViewHolder (binding: ChallengesListBinding,private val editClickListener: OnEditClickListener):RecyclerView.ViewHolder(binding.root) {
     val bindingChallenge = binding
 
     fun setChallengeList(challenge: Challenge){
         bindingChallenge.tvDescription.text = challenge.description
-        setTouchAnimation(bindingChallenge.ivDelete)
-        setTouchAnimation(bindingChallenge.ivEdit)
+
+
+        bindingChallenge.ivEdit.setOnClickListener {
+            // Llamar al método onEditClick del listener
+            editClickListener.onEditClick(challenge.id)
+        }
+        bindingChallenge.ivDelete.setOnClickListener {
+            // Llamar al método onDeleteClick del listener
+            editClickListener.onDeleteClick(challenge.id)
+        }
+
     }
 
     private fun setTouchAnimation(imageView: ImageView) {
@@ -32,4 +47,7 @@ class ChallengeViewHolder (binding: ChallengesListBinding):RecyclerView.ViewHold
             }
         }
     }
+
+
+
 }
