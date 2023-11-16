@@ -136,20 +136,29 @@ class ChallengesListFragment : Fragment(), OnEditClickListener {
     }
 
     private fun showDeleteConfirmationDialog(challengeId: Int) {
-        // Implementa aquí la lógica para mostrar un diálogo de confirmación para la eliminación.
-        // Puedes utilizar AlertDialog.Builder para construir el diálogo y manejar los clics en los botones Aceptar/Cancelar.
-        // Después, puedes llamar a challengesViewModel.deleteChallenge(challengeId) si el usuario confirma la eliminación.
-        AlertDialog.Builder(requireContext())
-            .setTitle("Confirmar eliminación")
-            .setMessage("¿Seguro que quieres eliminar este reto?")
-            .setPositiveButton("Aceptar") { _, _ ->
-                // Lógica para eliminar el desafío
-                challengesViewModel.deleteChallenge(challengeId)
-            }
-            .setNegativeButton("Cancelar") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+        val inflater = requireActivity().layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_confirmation, null)
+
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+
+        val alertDialog = dialogBuilder.create()
+
+        val btnConfirmDelete = dialogView.findViewById<Button>(R.id.btnConfirmDelete)
+        val btnCancelDelete = dialogView.findViewById<Button>(R.id.btnCancelDelete)
+
+        btnConfirmDelete.setOnClickListener {
+            // Lógica para eliminar el desafío
+            challengesViewModel.deleteChallenge(challengeId)
+            alertDialog.dismiss()
+        }
+
+        btnCancelDelete.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
     }
+
 
 }
