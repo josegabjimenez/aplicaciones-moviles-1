@@ -1,5 +1,6 @@
 package com.example.equipocinco.view.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.EditText
@@ -83,35 +84,35 @@ class ChallengesListFragment : Fragment(), OnEditClickListener {
         showEditDialog(challengeId)
     }
 
+    @SuppressLint("MissingInflatedId")
     private fun showEditDialog(challengeId: Int) {
-        val viewModel = challengesViewModel // Replace with your actual ViewModel reference
+        val viewModel = challengesViewModel // Reemplaza con tu referencia real al ViewModel
 
-        // Inflate the custom layout
+        // Inflate del layout personalizado
         val inflater = LayoutInflater.from(requireContext())
         val customLayout = inflater.inflate(R.layout.edit_dialog, null)
 
-        // Find views in the custom layout
+        // Encuentra vistas en el layout personalizado
         val tvDialogTitle = customLayout.findViewById<TextView>(R.id.tvDialogTitle)
         val etDescription = customLayout.findViewById<EditText>(R.id.etDescription)
         val btnSave = customLayout.findViewById<Button>(R.id.btnSave)
         val btnCancel = customLayout.findViewById<Button>(R.id.btnCancel)
 
-        // Set up the AlertDialog
+        // Configuración del AlertDialog
         val alertDialog = AlertDialog.Builder(requireContext()).create()
         alertDialog.setView(customLayout)
 
-        // Set the title
-        tvDialogTitle.text = "Editar Descripción"
+        // Configuración del título
 
-        // Get the challenge by ID
+        // Obtener el reto por ID
         val currentChallenge = viewModel.getChallengeById(challengeId)
 
-        // Set the current description in the EditText
+        // Establecer la descripción actual en el EditText
         etDescription.setText(currentChallenge?.description)
 
-        // Set click listeners for buttons
+        // Configurar clics en botones
         btnSave.setOnClickListener {
-            // Handle save button click
+            // Manejar clic en botón Guardar
             val newDescription = etDescription.text.toString()
             currentChallenge?.let {
                 viewModel.updateChallengeDescription(it.id, newDescription)
@@ -120,13 +121,17 @@ class ChallengesListFragment : Fragment(), OnEditClickListener {
         }
 
         btnCancel.setOnClickListener {
-            // Handle cancel button click
+            // Manejar clic en botón Cancelar
             alertDialog.dismiss()
         }
 
-        // Show the AlertDialog
+        // Evitar que el diálogo se cierre al tocar fuera de él
+        alertDialog.setCanceledOnTouchOutside(false)
+
+        // Mostrar el AlertDialog
         alertDialog.show()
     }
+
 
 
     override fun onDeleteClick(challengeId: Int) {
@@ -146,6 +151,13 @@ class ChallengesListFragment : Fragment(), OnEditClickListener {
 
         val btnConfirmDelete = dialogView.findViewById<Button>(R.id.btnConfirmDelete)
         val btnCancelDelete = dialogView.findViewById<Button>(R.id.btnCancelDelete)
+        val tvChallengeDescription = dialogView.findViewById<TextView>(R.id.tvChallengeDescription)
+
+        // Obtener el reto por ID
+        val currentChallenge = challengesViewModel.getChallengeById(challengeId)
+
+        // Mostrar la descripción del reto en el TextView del diálogo
+        tvChallengeDescription.text = currentChallenge?.description ?: "No description available"
 
         btnConfirmDelete.setOnClickListener {
             // Lógica para eliminar el desafío
@@ -157,8 +169,13 @@ class ChallengesListFragment : Fragment(), OnEditClickListener {
             alertDialog.dismiss()
         }
 
+        // Evitar que el diálogo se cierre al tocar fuera de él
+        alertDialog.setCanceledOnTouchOutside(false)
+
         alertDialog.show()
     }
+
+
 
 
 }
