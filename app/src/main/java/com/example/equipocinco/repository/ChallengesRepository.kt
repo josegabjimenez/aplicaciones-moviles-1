@@ -43,4 +43,23 @@ class ChallengesRepository (val context: Context){
             }
         }
     }
+    suspend fun getChallengeById(challengeId: Int): Challenge? {
+        return withContext(Dispatchers.IO) {
+            challengeDao.getChallengeById(challengeId)
+        }
+    }
+
+    suspend fun updateChallenge(challenge: Challenge) {
+        withContext(Dispatchers.IO) {
+            challengeDao.updateChallenge(challenge)
+        }
+    }
+
+    suspend fun deleteChallenge(challengeId: Int) {
+        withContext(Dispatchers.IO) {
+            challengeDao.deleteChallenge(challengeId)
+        }
+    }
+
+
 }
